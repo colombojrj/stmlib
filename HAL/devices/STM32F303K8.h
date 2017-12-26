@@ -2,7 +2,6 @@
 #define STM32F303K8_H_
 
 #define _MMIO(mem_addr) (*(volatile uint32_t *)(mem_addr))
-#define _MMIO_BYTE(mem_addr) (*(volatile uint32_t *)(mem_addr))
 
 //
 //////////
@@ -10,7 +9,7 @@
 //////////
 //
 
-#define GPIOA           0x48000000
+#define GPIOA 0x48000000
 #define PA0             0
 #define PA1             1
 #define PA2             2
@@ -28,7 +27,7 @@
 #define PA14            14
 #define PA15            15
 
-#define GPIOB           0x48000400
+#define GPIOB 0x48000400
 #define PB0             0
 #define PB1             1
 #define PB2             2
@@ -105,15 +104,13 @@
 #define OTYPERx(GPIOx)  _MMIO(GPIOx+0x04) // GPIO port output type register
 #define OSPEEDRx(GPIOx) _MMIO(GPIOx+0x08) // GPIO port output speed register
 #define PUPDRx(GPIOx)   _MMIO(GPIOx+0x0C) // GPIO port pull-up/pull-down register
-#define IDRx(GPIOx)     _MMIO(GPIOx+0x10) // GPIO port input data register
-#define ODRx(GPIOx)     _MMIO(GPIOx+0x14) // GPIO port output data register
-#define BSSRx(GPIOx)    _MMIO(GPIOx+0x18) // GPIO port bit set/reset register
-#define LCKRx(GPIOx)    _MMIO(GPIOx+0x1C) // GPIO port configuration lock register
-#define BSSRx(GPIOx)    _MMIO(GPIOx+0x18) // GPIO alternate function low register
-#define AFRLx(GPIOx)    _MMIO(GPIOx+0x20) // GPIO alternate function low register
-#define AFRHx(GPIOx)    _MMIO(GPIOx+0x24) // GPIO alternate function high register
-#define BRRx(GPIOx)     _MMIO(GPIOx+0x18) // GPIO port bit reset register
-#define BSSRx(GPIOx)    _MMIO(GPIOx+0x18) // GPIO port output data register
+#define IDRx(GPIOx)     (*(&GPIOx+0x10)) // GPIO port input data register
+#define ODRx(GPIOx)     _MMIO(GPIOx+0x14)// GPIO port output data register
+#define BSSRx(GPIOx)    (*(&GPIOx+0x18)) // GPIO port bit set/reset register
+#define LCKRx(GPIOx)    (*(&GPIOx+0x1C)) // GPIO port configuration lock register
+#define AFRLx(GPIOx)    (*(&GPIOx+0x20)) // GPIO alternate function low register
+#define AFRHx(GPIOx)    (*(&GPIOx+0x24)) // GPIO alternate function high register
+#define BRRx(GPIOx)     (*(&GPIOx+0x28)) // GPIO port bit reset register
 
 
 
@@ -125,7 +122,7 @@
 // RCC //
 /////////
 //
-#define RCC_AHBENR      _MMIO_BYTE(0x40021000+0x14)
+#define RCC_AHBENR      _MMIO(0x40021000+0x14)
 #define DMA1EN          0
 #define DMA2EN          1
 #define SRAMEN          2
